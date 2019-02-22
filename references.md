@@ -13,6 +13,7 @@
 - [VDSO](http://man7.org/linux/man-pages/man7/vdso.7.html)
 - [Implementing a system call in Linux Kernel 4.7.1](https://medium.com/@ssreehari/implementing-a-system-call-in-linux-kernel-4-7-1-6f98250a8c38)
 - [Writing a Linux Kernel Module — Part 1: Introduction](http://derekmolloy.ie/writing-a-linux-kernel-module-part-1-introduction/)
+- [Writing a Simple Linux Kernel Module](https://blog.sourcerer.io/writing-a-simple-linux-kernel-module-d9dc3762c234)
 
 ## Tools
 

@@ -19,3 +19,4 @@ apt-get install libncurses5-dev
 apt-get install ruby{,-dev}
 apt-get install libmagickcore-dev imagemagick
 apt-get install libmagickwand-dev
+gem install vimdeck

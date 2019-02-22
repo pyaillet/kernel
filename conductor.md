@@ -18,3 +18,29 @@ précise de:
 [comment]: # slide 3
 Maintenant on fait comme le PC, et on démarre 
 
+
+
+[comment]: # manip - zombi
+
+Vous avez déjà certainement entendu parler de process zombies.
+On va voir comment en créer un...
+
+```shell
+cat zombi.c
+```
+
+Vous avez dû remarquer que dans un programme en C, on a toujours une valeur de
+retour (le int main() et le return 0 à la fin).
+
+```shell
+./zombi &
+pstree $$
+ps a
+```
+
+Lorsqu'un processus se termine, il attend que son parent lise son code de
+retour. Tant que personne n'est venu lire ce code, le processus reste dans
+l'état _Zombi_ ou \[defunct\]
+
+[comment]: # manip kernel
+
