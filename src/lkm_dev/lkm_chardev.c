@@ -4,6 +4,7 @@
 #include <linux/kernel.h>
 #include <linux/fs.h>
 #include <linux/uaccess.h>
+#include <linux/string.h>
 #define  DEVICE_NAME "tzchar"
 #define  CLASS_NAME  "tz"
 
@@ -33,6 +34,8 @@ static struct file_operations fops =
 };
 
 static int __init char_init(void){
+   memset(message, 0, 256);
+
    printk(KERN_INFO "TzChar: Initializing the Char LKM\n");
 
    majorNumber = register_chrdev(0, DEVICE_NAME, &fops);
@@ -87,12 +90,22 @@ static ssize_t dev_read(struct file *filep, char *buffer, size_t len, loff_t *of
       printk(KERN_INFO "TzChar: Failed to send %d characters to the user\n", error_count);
       return -EFAULT;
    }
+   return size_of_message;
 }
 
 static ssize_t dev_write(struct file *filep, const char *buffer, size_t len, loff_t *offset){
-   sprintf(message, "%s(%zu letters)", buffer, len);
-   size_of_message = strlen(message);
-   printk(KERN_INFO "TzChar: Received %zu characters from the user\n", len);
+   int error_count = 0;
+   error_count = copy_from_user(message, buffer, len);
+   
+   if (error_count==0){
+      size_of_message = len - 1;
+      message[size_of_message]=0;
+      printk(KERN_INFO "TzChar: Received %s(%zu characters) from the user\n", message, len);
+   }
+   else {
+      printk(KERN_INFO "TzChar: Failed to get %d characters from the user\n", error_count);
+      return -EFAULT;
+   }
    return len;
 }
 
